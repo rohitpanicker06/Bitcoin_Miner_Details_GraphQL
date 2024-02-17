@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+import client from './apolloClient';
+import MinerDetails from './MinerDetails';
+import AddressDetails from './AddressDetails'; // Assume this is your new component for address details
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            <Routes>
+              <Route path="/" element={<MinerDetails />} />
+              <Route path="/address/:address" element={<AddressDetails />} />
+            </Routes>
+          </header>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
 
